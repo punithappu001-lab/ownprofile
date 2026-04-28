@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Punith Devaraj — Technical Operations Lead</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #0f1f3d;
+    --ink: #1a2740;
+    --accent: #2563eb;
+    --accent-light: #dbeafe;
+    --gold: #c9963a;
+    --surface: #f8f7f4;
+    --card: #ffffff;
+    --muted: #64748b;
+    --border: #e2e1dc;
+    --text: #1e293b;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--surface);
+    color: var(--text);
+    font-size: 15px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── HERO ─────────────────────────────────────────────────── */
+  .hero {
+    background: var(--navy);
+    color: #fff;
+    padding: 80px 0 72px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -120px; right: -120px;
+    width: 480px; height: 480px;
+    border-radius: 50%;
+    background: rgba(37, 99, 235, 0.12);
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -80px; left: -60px;
+    width: 320px; height: 320px;
+    border-radius: 50%;
+    background: rgba(201, 150, 58, 0.08);
+  }
+
+  .container {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 32px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-eyebrow {
+    font-size: 11px;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 500;
+    margin-bottom: 16px;
+    opacity: 0;
+    animation: fadeUp .6s .1s forwards;
+  }
+
+  .hero-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(40px, 6vw, 58px);
+    line-height: 1.1;
+    color: #fff;
+    margin-bottom: 14px;
+    opacity: 0;
+    animation: fadeUp .6s .2s forwards;
+  }
+
+  .hero-name em {
+    font-style: italic;
+    color: #93c5fd;
+  }
+
+  .hero-role {
+    font-size: 17px;
+    color: #94a3b8;
+    margin-bottom: 28px;
+    font-weight: 300;
+    opacity: 0;
+    animation: fadeUp .6s .3s forwards;
+  }
+
+  .hero-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 36px;
+    opacity: 0;
+    animation: fadeUp .6s .4s forwards;
+  }
+
+  .badge {
+    font-size: 12px;
+    padding: 5px 14px;
+    border-radius: 20px;
+    font-weight: 400;
+  }
+
+  .badge-open {
+    background: rgba(37,99,235,.25);
+    color: #93c5fd;
+    border: 1px solid rgba(147,197,253,.3);
+  }
+
+  .badge-visa {
+    background: rgba(201,150,58,.2);
+    color: #fcd34d;
+    border: 1px solid rgba(252,211,77,.25);
+  }
+
+  .badge-loc {
+    background: rgba(255,255,255,.08);
+    color: #cbd5e1;
+    border: 1px solid rgba(255,255,255,.12);
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp .6s .5s forwards;
+    padding-top: 32px;
+    border-top: 1px solid rgba(255,255,255,.1);
+  }
+
+  .stat-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 34px;
+    color: #fff;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .stat-num span { color: var(--gold); }
+
+  .stat-label {
+    font-size: 12px;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+  }
+
+  /* ── NAV ──────────────────────────────────────────────────── */
+  .nav-strip {
+    background: var(--card);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .nav-inner {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 32px;
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .nav-inner::-webkit-scrollbar { display: none; }
+
+  .nav-link {
+    font-size: 13px;
+    color: var(--muted);
+    text-decoration: none;
+    padding: 14px 18px;
+    white-space: nowrap;
+    border-bottom: 2px solid transparent;
+    transition: color .2s, border-color .2s;
+    font-weight: 400;
+  }
+
+  .nav-link:hover { color: var(--accent); border-color: var(--accent); }
+
+  /* ── SECTIONS ─────────────────────────────────────────────── */
+  section { padding: 64px 0; }
+  section:nth-child(even) { background: var(--card); }
+
+  .section-label {
+    font-size: 10px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 30px;
+    color: var(--ink);
+    margin-bottom: 36px;
+    line-height: 1.2;
+  }
+
+  /* ── ABOUT ────────────────────────────────────────────────── */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+
+  @media(max-width:640px) { .about-grid { grid-template-columns: 1fr; gap: 28px; } }
+
+  .about-text {
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.8;
+  }
+
+  .about-text p + p { margin-top: 14px; }
+
+  .about-text strong { color: var(--text); font-weight: 500; }
+
+  .wins-list { list-style: none; }
+
+  .wins-list li {
+    display: flex;
+    gap: 14px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+    align-items: flex-start;
+  }
+
+  .wins-list li:last-child { border-bottom: none; }
+
+  .win-icon {
+    width: 36px; height: 36px;
+    background: var(--accent-light);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .win-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 3px;
+  }
+
+  .win-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  /* ── EXPERIENCE ───────────────────────────────────────────── */
+  .timeline { position: relative; padding-left: 28px; }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 8px; bottom: 8px;
+    width: 1px;
+    background: var(--border);
+  }
+
+  .exp-item {
+    position: relative;
+    margin-bottom: 44px;
+  }
+
+  .exp-item::before {
+    content: '';
+    position: absolute;
+    left: -33px; top: 8px;
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 2px solid var(--card);
+    box-shadow: 0 0 0 1px var(--accent);
+  }
+
+  .exp-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 6px;
+  }
+
+  .exp-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 20px;
+    color: var(--ink);
+  }
+
+  .exp-company {
+    font-size: 13px;
+    color: var(--accent);
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+
+  .exp-dates {
+    font-size: 12px;
+    color: var(--muted);
+    background: var(--surface);
+    padding: 4px 12px;
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+
+  .exp-bullets {
+    list-style: none;
+    margin-top: 12px;
+  }
+
+  .exp-bullets li {
+    font-size: 14px;
+    color: var(--muted);
+    padding: 5px 0 5px 18px;
+    position: relative;
+    line-height: 1.6;
+  }
+
+  .exp-bullets li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-size: 12px;
+    top: 7px;
+  }
+
+  .exp-bullets li strong { color: var(--text); font-weight: 500; }
+
+  .tech-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 14px;
+  }
+
+  .tech-tag {
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 4px;
+    background: var(--surface);
+    color: var(--muted);
+    border: 1px solid var(--border);
+    font-weight: 400;
+  }
+
+  /* ── SKILLS ───────────────────────────────────────────────── */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+  }
+
+  .skill-group {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px 20px;
+  }
+
+  .skill-group-title {
+    font-size: 11px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 500;
+    margin-bottom: 12px;
+  }
+
+  .skill-item {
+    font-size: 13px;
+    color: var(--text);
+    padding: 4px 0;
+    border-bottom: 1px solid var(--border);
+    line-height: 1.5;
+  }
+
+  .skill-item:last-child { border-bottom: none; }
+
+  /* ── CERTIFICATIONS ───────────────────────────────────────── */
+  .cert-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .cert-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+    min-width: 200px;
+  }
+
+  .cert-icon {
+    width: 38px; height: 38px;
+    border-radius: 8px;
+    background: var(--accent-light);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  .cert-name {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+    line-height: 1.3;
+  }
+
+  .cert-status {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+
+  /* ── AWARDS ───────────────────────────────────────────────── */
+  .awards-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .award-card {
+    flex: 1;
+    min-width: 160px;
+    background: linear-gradient(135deg, var(--navy) 0%, #1e3a6e 100%);
+    border-radius: 12px;
+    padding: 20px;
+    color: #fff;
+    text-align: center;
+  }
+
+  .award-icon { font-size: 26px; margin-bottom: 8px; }
+
+  .award-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 15px;
+    color: #fff;
+    margin-bottom: 4px;
+    line-height: 1.3;
+  }
+
+  .award-sub { font-size: 11px; color: #94a3b8; }
+
+  /* ── CONTACT ──────────────────────────────────────────────── */
+  .contact-section {
+    background: var(--navy);
+    color: #fff;
+    padding: 64px 0;
+  }
+
+  .contact-inner {
+    text-align: center;
+  }
+
+  .contact-section .section-title {
+    color: #fff;
+    margin-bottom: 14px;
+  }
+
+  .contact-sub {
+    font-size: 15px;
+    color: #94a3b8;
+    margin-bottom: 36px;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .contact-links {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 14px;
+  }
+
+  .contact-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 14px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: opacity .2s, transform .15s;
+  }
+
+  .contact-btn:hover { opacity: .85; transform: translateY(-1px); }
+
+  .btn-email {
+    background: var(--accent);
+    color: #fff;
+  }
+
+  .btn-linkedin {
+    background: rgba(255,255,255,.1);
+    color: #fff;
+    border: 1px solid rgba(255,255,255,.2);
+  }
+
+  .visa-note {
+    margin-top: 28px;
+    font-size: 12px;
+    color: #64748b;
+  }
+
+  .visa-note span {
+    background: rgba(201,150,58,.2);
+    color: #fcd34d;
+    padding: 4px 12px;
+    border-radius: 20px;
+    border: 1px solid rgba(252,211,77,.2);
+  }
+
+  /* ── FOOTER ───────────────────────────────────────────────── */
+  footer {
+    background: #080f1e;
+    text-align: center;
+    padding: 20px 32px;
+    font-size: 12px;
+    color: #334155;
+  }
+
+  /* ── ANIMATIONS ───────────────────────────────────────────── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity .55s ease, transform .55s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: none;
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="container">
+    <p class="hero-eyebrow">Technical Operations Lead · Bengaluru → United Kingdom</p>
+    <h1 class="hero-name">Punith <em>Devaraj</em></h1>
+    <p class="hero-role">8.5 years building high-performance ops teams &amp; automation at Accenture</p>
+    <div class="hero-badges">
+      <span class="badge badge-open">Open to UK roles</span>
+      <span class="badge badge-visa">Skilled Worker Visa sponsorship required</span>
+      <span class="badge badge-loc">Bengaluru, India · Ready to relocate</span>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num">8.5<span>+</span></div>
+        <div class="stat-label">Years experience</div>
+      </div>
+      <div>
+        <div class="stat-num">95<span>%</span></div>
+        <div class="stat-label">Manual effort cut</div>
+      </div>
+      <div>
+        <div class="stat-num">20<span>%</span></div>
+        <div class="stat-label">Defect rate reduced</div>
+      </div>
+      <div>
+        <div class="stat-num">3<span>×</span></div>
+        <div class="stat-label">Award winner</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- NAV -->
+<nav class="nav-strip">
+  <div class="nav-inner">
+    <a class="nav-link" href="#about">About</a>
+    <a class="nav-link" href="#experience">Experience</a>
+    <a class="nav-link" href="#skills">Skills</a>
+    <a class="nav-link" href="#certifications">Certifications</a>
+    <a class="nav-link" href="#awards">Awards</a>
+    <a class="nav-link" href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <p class="section-label reveal">Profile</p>
+    <h2 class="section-title reveal">About me</h2>
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <p>I'm a <strong>Technical Operations Lead at Accenture India</strong> with 8.5 years of experience leading product support engineering teams and building automation that eliminates operational waste.</p>
+        <p>My work sits at the intersection of <strong>Python automation, REST API troubleshooting, Gen AI, and team leadership</strong>. I've delivered measurable results on enterprise platforms including <strong>Siebel CRM and Google Wallet</strong>.</p>
+        <p>I care about building teams that are self-sufficient — through structured performance reviews, internal training, and strong cross-functional escalation processes.</p>
+        <p>I'm now actively looking to bring this experience to a <strong>UK-based role</strong> — whether in Technical Operations, Operations Management, or Product Support Engineering.</p>
+      </div>
+      <div class="reveal">
+        <ul class="wins-list">
+          <li>
+            <div class="win-icon">⚙</div>
+            <div>
+              <div class="win-num">95%</div>
+              <div class="win-desc">Reduction in manual configuration effort via "From Code to Configure" — a custom Python utility tool</div>
+            </div>
+          </li>
+          <li>
+            <div class="win-icon">↓</div>
+            <div>
+              <div class="win-num">20%</div>
+              <div class="win-desc">Defect rate reduction through redesigned L1–L2 bug lifecycle from triage to Engineering handoff</div>
+            </div>
+          </li>
+          <li>
+            <div class="win-icon">✦</div>
+            <div>
+              <div class="win-num">0 tickets</div>
+              <div class="win-desc">Repeat support tickets eliminated with a self-serve client resolution tool for known errors</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="container">
+    <p class="section-label reveal">Career</p>
+    <h2 class="section-title reveal">Experience</h2>
+    <div class="timeline">
+
+      <div class="exp-item reveal">
+        <div class="exp-header">
+          <div>
+            <div class="exp-title">Technical Operations Lead</div>
+            <div class="exp-company">Accenture India</div>
+          </div>
+          <span class="exp-dates">2020 – Present · Bengaluru</span>
+        </div>
+        <ul class="exp-bullets">
+          <li>Built <strong>"From Code to Configure"</strong> — a Python utility that reduced manual configuration work by 95%</li>
+          <li>Deployed a <strong>self-serve resolution tool</strong> enabling clients to instantly resolve recurring known errors, eliminating the entire ticket category</li>
+          <li>Reduced team <strong>defect rate by 20%</strong> by redesigning the end-to-end bug lifecycle from L1 triage through L2 peer review to Jira handoff</li>
+          <li>Own team KPIs: productivity, SLA adherence, CSAT, response times, and knowledge contribution — consistently above target</li>
+          <li>Governed L1–L2 escalation quality, swarming practices, and cross-tier knowledge sharing with L1 managers</li>
+          <li>Delivered internal <strong>technical training workshops</strong> and advanced troubleshooting sessions to upskill the team</li>
+        </ul>
+        <div class="tech-tags">
+          <span class="tech-tag">Python</span>
+          <span class="tech-tag">Oracle PL/SQL</span>
+          <span class="tech-tag">REST APIs</span>
+          <span class="tech-tag">Gen AI</span>
+          <span class="tech-tag">Agentic AI</span>
+          <span class="tech-tag">Jira</span>
+          <span class="tech-tag">Oracle Cloud (OCI)</span>
+          <span class="tech-tag">AppScript</span>
+        </div>
+      </div>
+
+      <div class="exp-item reveal">
+        <div class="exp-header">
+          <div>
+            <div class="exp-title">Senior Technical Specialist</div>
+            <div class="exp-company">Product Support Engineering · Accenture India</div>
+          </div>
+          <span class="exp-dates">2016 – 2020 · Bengaluru</span>
+        </div>
+        <ul class="exp-bullets">
+          <li>Provided advanced <strong>L2 technical support</strong> for Siebel CRM and Google Wallet platforms, handling escalated cases</li>
+          <li>Developed <strong>EAI and REST API troubleshooting frameworks</strong> adopted team-wide to standardise diagnostics</li>
+          <li>Diagnosed complex data integrity and application configuration issues using <strong>SQL and Oracle PL/SQL</strong></li>
+          <li>Contributed to knowledge base development and peer knowledge-transfer sessions across support tiers</li>
+        </ul>
+        <div class="tech-tags">
+          <span class="tech-tag">Oracle Siebel CRM</span>
+          <span class="tech-tag">Google Wallet</span>
+          <span class="tech-tag">SQL</span>
+          <span class="tech-tag">Oracle PL/SQL</span>
+          <span class="tech-tag">EAI</span>
+          <span class="tech-tag">REST APIs</span>
+          <span class="tech-tag">ITSM</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="container">
+    <p class="section-label reveal">Capabilities</p>
+    <h2 class="section-title reveal">Technical skills</h2>
+    <div class="skills-grid">
+      <div class="skill-group reveal">
+        <div class="skill-group-title">Languages &amp; data</div>
+        <div class="skill-item">Python</div>
+        <div class="skill-item">SQL / Oracle PL/SQL</div>
+        <div class="skill-item">AppScript</div>
+        <div class="skill-item">Data analysis</div>
+      </div>
+      <div class="skill-group reveal">
+        <div class="skill-group-title">APIs &amp; integration</div>
+        <div class="skill-item">REST API troubleshooting</div>
+        <div class="skill-item">EAI integration</div>
+        <div class="skill-item">Application configuration</div>
+        <div class="skill-item">Incident management</div>
+      </div>
+      <div class="skill-group reveal">
+        <div class="skill-group-title">AI &amp; automation</div>
+        <div class="skill-item">Generative AI</div>
+        <div class="skill-item">Agentic AI</div>
+        <div class="skill-item">Prompt engineering</div>
+        <div class="skill-item">RPA tools</div>
+      </div>
+      <div class="skill-group reveal">
+        <div class="skill-group-title">Cloud &amp; platforms</div>
+        <div class="skill-item">Oracle Cloud (OCI)</div>
+        <div class="skill-item">Amazon Web Services</div>
+        <div class="skill-item">Oracle Siebel CRM</div>
+        <div class="skill-item">Google Wallet</div>
+      </div>
+      <div class="skill-group reveal">
+        <div class="skill-group-title">Operations &amp; leadership</div>
+        <div class="skill-item">Team management</div>
+        <div class="skill-item">SLA / KPI governance</div>
+        <div class="skill-item">Performance reviews</div>
+        <div class="skill-item">ITIL (in progress)</div>
+      </div>
+      <div class="skill-group reveal">
+        <div class="skill-group-title">Tools</div>
+        <div class="skill-item">Jira</div>
+        <div class="skill-item">Bug lifecycle governance</div>
+        <div class="skill-item">Knowledge management</div>
+        <div class="skill-item">Technical training</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <div class="container">
+    <p class="section-label reveal">Credentials</p>
+    <h2 class="section-title reveal">Certifications</h2>
+    <div class="cert-row">
+      <div class="cert-card reveal">
+        <div class="cert-icon">☁</div>
+        <div>
+          <div class="cert-name">Oracle Cloud Infrastructure Fundamentals</div>
+          <div class="cert-status">Certified · OCI</div>
+        </div>
+      </div>
+      <div class="cert-card reveal">
+        <div class="cert-icon">⚡</div>
+        <div>
+          <div class="cert-name">Automation Expert</div>
+          <div class="cert-status">Certified</div>
+        </div>
+      </div>
+      <div class="cert-card reveal">
+        <div class="cert-icon">☁</div>
+        <div>
+          <div class="cert-name">AWS Cloud Associate</div>
+          <div class="cert-status">In progress · Amazon Web Services</div>
+        </div>
+      </div>
+      <div class="cert-card reveal">
+        <div class="cert-icon">⚙</div>
+        <div>
+          <div class="cert-name">ITIL Foundation</div>
+          <div class="cert-status">In progress</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AWARDS -->
+<section id="awards">
+  <div class="container">
+    <p class="section-label reveal">Recognition</p>
+    <h2 class="section-title reveal">Awards</h2>
+    <div class="awards-row">
+      <div class="award-card reveal">
+        <div class="award-icon">★</div>
+        <div class="award-name">Performance Improvisation Winner</div>
+        <div class="award-sub">Accenture India</div>
+      </div>
+      <div class="award-card reveal">
+        <div class="award-icon">◆</div>
+        <div class="award-name">ACE Award Winner</div>
+        <div class="award-sub">Accenture India</div>
+      </div>
+      <div class="award-card reveal">
+        <div class="award-icon">✦</div>
+        <div class="award-name">GBO Extra Mile Champion</div>
+        <div class="award-sub">Accenture India · Global Business Operations</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+  <div class="container contact-inner">
+    <p class="section-label reveal" style="color:var(--gold)">Get in touch</p>
+    <h2 class="section-title reveal">Open to UK opportunities</h2>
+    <p class="contact-sub reveal">I'm actively looking for Technical Operations Lead, Operations Manager, and Product Support Lead roles in the UK. Let's talk.</p>
+    <div class="contact-links reveal">
+      <a class="contact-btn btn-email" href="mailto:devarajpunith876@gmail.com">
+        ✉ devarajpunith876@gmail.com
+      </a>
+      <a class="contact-btn btn-linkedin" href="https://www.linkedin.com/in/punith-devaraj-746104149/" target="_blank">
+        in LinkedIn profile
+      </a>
+    </div>
+    <div class="visa-note reveal">
+      <span>Skilled Worker Visa sponsorship required · Home Office licensed sponsors only</span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Punith Devaraj · Technical Operations Lead · devarajpunith876@gmail.com
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
